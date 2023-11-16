@@ -47,7 +47,7 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-        points: {
+        refpoints: {
           defaultValue: 0,
           type: Sequelize.INTEGER,
         },

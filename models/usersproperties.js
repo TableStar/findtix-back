@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImage: DataTypes.STRING,
       phoneNumber: DataTypes.STRING,
       creatorCompany: DataTypes.STRING,
+      refpoint: DataTypes.INTEGER,
     },
     {
       sequelize,

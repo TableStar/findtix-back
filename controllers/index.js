@@ -1,4 +1,4 @@
-// CONTOH 
+// CONTOH
 // const accountsController = require("./accounts")
 
 // module.exports = {
@@ -6,7 +6,15 @@
 // }
 const eventsController = require("./events")
 const categoriesController = require("./categories")
+const authsController = require("./auths");
+const postsController = require("./posts");
+const forgottenController = require("./forgotten");
+const pictureController = require("./picture");
 module.exports = {
     eventsController,
-    categoriesController
+    categoriesController,
+    authsController,
+    postsController,
+    forgottenController,
+    pictureController,
 }

@@ -6,7 +6,15 @@
 // }
 const eventsRouter = require("./events")
 const categoriesRouter = require("./categories")
+const authsRouter = require("./auths");
+const postsRouter = require("./posts");
+const forgottenRouter = require("./forgotten");
+const pictureRouter = require("./picture");
 module.exports = {
     eventsRouter,
-    categoriesRouter
+    categoriesRouter,
+    authsRouter,
+    postsRouter,
+    forgottenRouter,
+    pictureRouter,
 }

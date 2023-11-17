@@ -23,7 +23,11 @@ const {
   postsRouter,
   forgottenRouter,
   pictureRouter,
+  eventsRouter,
+  categoriesRouter,
 } = require("./routers");
+app.use("/events", eventsRouter)
+app.use("/categories", categoriesRouter)
 app.use("/auths", authsRouter);
 app.use("/posts", postsRouter);
 app.use("/forgotten", forgottenRouter);
@@ -31,11 +35,10 @@ app.use("/profilepic", pictureRouter);
 
 app.use("/public", express.static("public"));
 
-//error handling express
-app.use((error, req, res, next) => {
-  console.log("this is index Error", error);
-  return res.status(error.rc || 500).send(error);
-});
+// ERROR HANDLING
+app.use((error, req,res,next) => {
+    return res.status(error.rc || 500).send(error)
+})
 
 app.listen(PORT, () => {
   console.log("API RUNNING", PORT);

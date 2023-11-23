@@ -25,20 +25,22 @@ const {
   pictureRouter,
   eventsRouter,
   categoriesRouter,
+  transactionRouter,
 } = require("./routers");
-app.use("/events", eventsRouter)
-app.use("/categories", categoriesRouter)
+app.use("/events", eventsRouter);
+app.use("/categories", categoriesRouter);
 app.use("/auths", authsRouter);
 app.use("/posts", postsRouter);
 app.use("/forgotten", forgottenRouter);
 app.use("/profilepic", pictureRouter);
+app.use("/transaction", transactionRouter);
 
 app.use("/public", express.static("public"));
 
 // ERROR HANDLING
-app.use((error, req,res,next) => {
-    return res.status(error.rc || 500).send(error)
-})
+app.use((error, req, res, next) => {
+  return res.status(error.rc || 500).send(error);
+});
 
 app.listen(PORT, () => {
   console.log("API RUNNING", PORT);

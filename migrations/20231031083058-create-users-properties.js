@@ -26,10 +26,6 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        idCardNumber: {
-          type: Sequelize.INTEGER,
-          unique: true,
-        },
         profileImage: {
           type: Sequelize.STRING,
         },
@@ -52,16 +48,16 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
       })
-      .then(() =>
-        queryInterface.addConstraint("usersProperties", {
-          type: "FOREIGN KEY",
-          name: "FK_auths_usersProperties",
-          fields: ["userId"],
-          references: { table: "auths", field: "id" },
-          onDelete: "no action",
-          onUpdate: "no action",
-        })
-      );
+      // .then(() =>
+      //   queryInterface.addConstraint("usersProperties", {
+      //     type: "FOREIGN KEY",
+      //     name: "FK_auths_usersProperties",
+      //     fields: ["userId"],
+      //     references: { table: "auths", field: "id" },
+      //     onDelete: "no action",
+      //     onUpdate: "no action",
+      //   })
+      // );
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("usersProperties");

@@ -180,6 +180,15 @@ module.exports = {
       }
     } catch (error) {
       console.log(error);
+      next(
+        templateResError(
+          error.rc,
+          false,
+          "password change failed",
+          error.message,
+          null
+        )
+      );
     }
   },
   changeRole: async (req, res, next) => {

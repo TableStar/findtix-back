@@ -4,6 +4,7 @@
 // module.exports = {
 //     accountsController
 // }
+
 const eventsController = require("./events");
 const categoriesController = require("./categories");
 const authsController = require("./auths");

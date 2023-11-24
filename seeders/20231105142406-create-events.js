@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -11,8 +11,8 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
-    await queryInterface.bulkInsert('events', [
+     */
+    await queryInterface.bulkInsert("events", [
       {
         creatorId: 1,
         name: "Yoga Meditation",
@@ -116,7 +116,7 @@ module.exports = {
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"
       },
-    ])
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
@@ -126,5 +126,5 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+  },
 };

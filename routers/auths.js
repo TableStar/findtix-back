@@ -21,7 +21,7 @@ router.patch(
   validatePass,
   authsController.changePass
 );
-router.patch("/verifyemail", validateToken, authsController.changeRole);
+router.patch("/verifyemail", validateToken, authsController.changeVerified);
 router.patch("/editauths", validateToken, authsController.editAuths);
 router.patch("/edituserprops", validateToken, authsController.editUserProps);
 router.get("/getall", authsController.getAllUserProps);

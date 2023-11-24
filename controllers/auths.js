@@ -11,6 +11,7 @@ const {
   templateResError,
   referralCodeyo,
 } = require("../helper/utilities");
+const { FRONT_URL } = require("../helper/frontInfo");
 
 // const { clientRedis } = require("../helper/redis");
 
@@ -61,20 +62,20 @@ module.exports = {
         );
         //Send Email registration
         //sementara dimatiin, long send time
-        // await transporter.sendMail({
-        //   from: "FINDTIX Admin",
-        //   to: req.body.email,
-        //   subject: "Registration Info",
-        //   html: `<h1>Hello,${req.body.username} Welcome to FINDTIX</h1>
-        //   <a href="http://localhost:5173/auth/verifyemail?token=${token}">Click Link</a>`,
-        // });
+        await transporter.sendMail({
+          from: "FINDTIX Admin",
+          to: req.body.email,
+          subject: "Registration Info",
+          html: `<h1>Hello,${req.body.username} Welcome to FINDTIX</h1>
+          <a href="${FRONT_URL}/auth/verifyemail?token=${token}">Click Link</a>`,
+        });
         return res.status(200).send({
           success: true,
-          registering: true,
           message: "register and login success",
           result: {
             username: response.username,
             email: response.email,
+            role: response.role,
             token,
           },
         });
@@ -117,7 +118,7 @@ module.exports = {
         });
       }
       console.log("res loginer", response.dataValues);
-      const { username, email } = response.dataValues;
+      const { username, email, role } = response.dataValues;
       delete response.dataValues.password;
       console.log(response.dataValues);
       let payload = {
@@ -127,13 +128,15 @@ module.exports = {
       const token = jwt.sign(payload, process.env.SCRT_TOKEN, {
         expiresIn: "6h",
       });
-      console.log(req.registering);
-
-      return res.status(200).send({
-        success: true,
-        message: "login success",
-        result: { username, email, token },
-      });
+      console.log("🚀 ~ file: auths.js:129 ~ login: ~ token:", token);
+      return res.status(200).send(
+        templateResSuccess(true, "login success", {
+          username,
+          email,
+          role,
+          token,
+        })
+      );
     } catch (error) {
       return res.status(error.statusCode || 500).send({
         message: error.message,
@@ -157,7 +160,7 @@ module.exports = {
       });
       return res
         .status(200)
-        .send({ success: true, result: { username, email, token } });
+        .send({ success: true, result: { username, email, role, token } });
     } catch (error) {
       console.log(error);
     }
@@ -199,7 +202,30 @@ module.exports = {
       return res
         .status(200)
         .send({ success: true, message: "role has been verified" });
-      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  changeVerified: async (req, res, next) => {
+    try {
+      console.log(req.userData);
+      const response = await auths.findOne({
+        where: { email: req.userData.email },
+        attributes: { exclude: ["password"] },
+      });
+      if (!response) {
+        return res.status(401).send({
+          success: false,
+          message: "Account not found, please input username correctly.",
+        });
+      }
+      await auths.update(
+        { isVerified: true },
+        { where: { id: req.userData.id } }
+      );
+      return res
+        .status(200)
+        .send({ success: true, message: "status has been verified" });
     } catch (error) {
       console.log(error);
     }
@@ -246,6 +272,10 @@ module.exports = {
   },
   editUserProps: async (req, res, next) => {
     try {
+      console.log(
+        "🚀 ~ file: auths.js:271 ~ editUserProps: ~ req.body:",
+        req.body
+      );
       await usersProperties.update(req.body, {
         where: { userId: req.userData.id },
       });

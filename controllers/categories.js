@@ -2,7 +2,7 @@ const { templateResponse } = require("../helper/utils");
 const { categories } = require("../models")
 
 module.exports = {
-    getCategories: async (req, res) => {
+    getCategories: async (req, res,next) => {
         try {
             const result = await categories.findAll()
             return res.status(200).send(result)

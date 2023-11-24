@@ -28,4 +28,7 @@ module.exports = {
     ).toUpperCase();
     return referral;
   },
+  cryptoHex: () => {
+    return crypto.randomBytes(3).toString("hex").toUpperCase();
+  },
 };

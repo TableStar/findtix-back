@@ -25,5 +25,12 @@ router.patch("/verifyemail", validateToken, authsController.changeVerified);
 router.patch("/editauths", validateToken, authsController.editAuths);
 router.patch("/edituserprops", validateToken, authsController.editUserProps);
 router.get("/getall", authsController.getAllUserProps);
+router.patch(
+  "/changepass",
+  validatePass,
+  validateToken,
+  validateOldPass,
+  authsController.changePass
+);
 
 module.exports = router;

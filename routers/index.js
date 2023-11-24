@@ -5,6 +5,8 @@
 //     accountsRouter,
 // }
 
-module.exports = {
+const eventsRouter = require("./events")
 
+module.exports = {
+    eventsRouter
 }

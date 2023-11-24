@@ -11,7 +11,9 @@ app.get("/", (req, res) => {
 })
 
 // DEFINE ROUTER
-
+const { eventsRouter } = require("./routers");
+app.use('/events', eventsRouter)
+app.use('./upload', express.static('uploads'));
 
 app.listen(PORT, () => {
     console.log("API RUNNING", PORT);

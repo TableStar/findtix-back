@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       events.belongsTo(models.categories)
+      events.belongsTo(models.cities)
       events.hasMany(models.ticketTypes)
     }
   }
@@ -20,14 +21,13 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     categoryId: {
       type: DataTypes.INTEGER,
-      references: {model: "categories", key: "id"},
-      onDelete: 'SET NULL'
+      references: {model: "categories", key: "id"}
     },
     img: DataTypes.STRING,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
     location: DataTypes.STRING,
-    city: DataTypes.STRING,
+    cityId: DataTypes.INTEGER,
     caption: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.STRING

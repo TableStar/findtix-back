@@ -10,6 +10,7 @@ const authsRouter = require("./auths");
 const postsRouter = require("./posts");
 const forgottenRouter = require("./forgotten");
 const pictureRouter = require("./picture");
+const citiesRouter = require("./cities")
 module.exports = {
     eventsRouter,
     categoriesRouter,
@@ -17,4 +18,5 @@ module.exports = {
     postsRouter,
     forgottenRouter,
     pictureRouter,
+    citiesRouter
 }

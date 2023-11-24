@@ -25,6 +25,7 @@ const {
   pictureRouter,
   eventsRouter,
   categoriesRouter,
+  citiesRouter
 } = require("./routers");
 app.use("/events", eventsRouter)
 app.use("/categories", categoriesRouter)
@@ -32,6 +33,7 @@ app.use("/auths", authsRouter);
 app.use("/posts", postsRouter);
 app.use("/forgotten", forgottenRouter);
 app.use("/profilepic", pictureRouter);
+app.use("/cities", citiesRouter)
 
 app.use("/public", express.static("public"));
 

@@ -20,7 +20,7 @@ module.exports = {
         img: "https://www.constantcontact.com/blog/wp-content/uploads/2021/06/Social-4.jpg",
         startDate: "2023-11-13T18:30",
         endDate: "2023-11-13T20:30",
-        city: "Online",
+        cityId: 35,
         caption: "Enhance your physical body and spiritual mind, and find peace through Yoga Meditation, join us online for an exciting adventure.",
         description: "With the current trend of a fast-paced life, a lot of people forget that it is okay to slow down and you do not have to be the first and the best. Our yoga session aims to help people find inner peace, with acceptance with inner self. Join us for an exciting adventure to deepen your understanding about yourself, and be at peace with your life.",
         status: "Upcoming"
@@ -33,7 +33,7 @@ module.exports = {
         startDate: "2023-11-17T16:30",
         endDate: "2023-11-17T20:00",
         location: "Grand City",
-        city: "Surabaya",
+        cityId: 6,
         caption: "Join our International Business Conference, with 3 experienced business coach & mentors that will guide you how to stay productive at home.",
         description: "A lot of jobs are now able to be done remotely, you can easily get an online side-job. This conference will help you and train you to get a remote side-job so you can get an extra income even when you are at your own home.",
         status: "Upcoming"
@@ -46,7 +46,7 @@ module.exports = {
         startDate: "2023-11-09T22:00",
         endDate: "2023-11-10T04:00",
         location: "Shelter",
-        city: "Surabaya",
+        cityId: 6,
         caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"
@@ -59,7 +59,7 @@ module.exports = {
         startDate: "2023-11-13T19:00",
         endDate: "2023-11-13T22:00",
         location: "Grand Empire Palace",
-        city: "Surabaya",
+        cityId: 6,
         caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"
@@ -72,7 +72,7 @@ module.exports = {
         startDate: "2023-12-24T18:00",
         endDate: "2023-12-25T00:00",
         location: "Tunjungan Plaza 6",
-        city: "Surabaya",
+        cityId: 6,
         caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"
@@ -85,7 +85,7 @@ module.exports = {
         startDate: "2023-11-06T18:00",
         endDate: "2023-11-06T21:00",
         location: null,
-        city: "Online",
+        cityId: 35,
         caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"
@@ -98,7 +98,7 @@ module.exports = {
         startDate: "2023-11-09T19:30",
         endDate: "2023-11-09T23:00",
         location: "Shangri-La Hotel",
-        city: "Surabaya",
+        cityId: 6,
         caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"
@@ -111,7 +111,7 @@ module.exports = {
         startDate: "2023-11-22T18:15",
         endDate: "2023-11-22T22:45",
         location: "Gelora Bung Karno Stadium",
-        city: "Jakarta",
+        cityId: 2,
         caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempor id eu nisl nunc mi ipsum faucibus vitae aliquet. Tristique magna sit amet purus gravida. At risus viverra adipiscing at in tellus integer. Varius duis at consectetur lorem donec massa sapien faucibus. Quis viverra nibh cras pulvinar mattis nunc sed blandit libero. Libero justo laoreet sit amet cursus sit amet dictum sit. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Tincidunt lobortis feugiat vivamus at augue eget. Adipiscing elit pellentesque habitant morbi tristique. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.",
         status: "Upcoming"

@@ -1,13 +1,11 @@
-const { events, categories, ticketTypes } = require("../models")
-const { Op } = require("sequelize")
+const { events, categories, ticketTypes, cities } = require("../models")
+const { Op } = require("sequelize");
 
 
 module.exports = {
     getUpcomingEvents: async (req, res) => {
         try {
-            const { name, limit, price, startDate, endDate, category, ...others } = req.query
-            console.log('INI START DATE', startDate);
-            console.log('INI END DATE', endDate);
+            const { name, limit, price, startDate, endDate, category, city, ...others } = req.query
             const result = await events.findAll({
                 where: {
                     status: "Upcoming",
@@ -25,11 +23,16 @@ module.exports = {
                     {
                         model: ticketTypes,
                         where: { price: price ? price : { [Op.or]: [{ [Op.ne]: null }, { [Op.is]: null }] } }
+                    },
+                    {
+                        model: cities,
+                        attributes: ['name'],
+                        where: { name: city === "Online" ? "Online" : city ? { [Op.or]: [{ [Op.like]: `%${city}%` }, "Online" ] } : { [Op.ne]: null } }
                     }
                 ],
                 limit: parseInt(limit) || 8,
             })
-            result.forEach(value => value.ticketTypes.sort((a, b) => a.price - b.price))
+            // result.forEach(value => value.ticketTypes.sort((a, b) => a.price - b.price))
             return res.status(200).send(result)
         } catch (error) {
             console.log(error);

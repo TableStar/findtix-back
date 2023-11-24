@@ -148,7 +148,12 @@ module.exports = {
       const result = await auths.findOne({
         where: { id: req.userData.id },
         raw: true,
+        include: {
+          model: usersProperties,
+          attributes: ['profileImage']
+        }
       });
+      console.log("INI RESULT", result);
       const { id, username, email, role } = result;
       const token = jwt.sign({ id, role }, process.env.SCRT_TOKEN, {
         expiresIn: "6h",

@@ -10,13 +10,14 @@ const authsController = require("./auths");
 const postsController = require("./posts");
 const forgottenController = require("./forgotten");
 const pictureController = require("./picture");
-const transactionController = require("./transactions");
+const citiesController = require("./cities")
 module.exports = {
-  eventsController,
-  categoriesController,
-  authsController,
-  postsController,
-  forgottenController,
-  pictureController,
-  transactionController,
-};
+    eventsController,
+    categoriesController,
+    authsController,
+    postsController,
+    forgottenController,
+    pictureController,
+    transactionController,
+    citiesController
+}

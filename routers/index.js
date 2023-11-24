@@ -11,12 +11,14 @@ const postsRouter = require("./posts");
 const forgottenRouter = require("./forgotten");
 const pictureRouter = require("./picture");
 const transactionRouter = require("./transactions");
+const citiesRouter = require("./cities");
 module.exports = {
-  eventsRouter,
-  categoriesRouter,
-  authsRouter,
-  postsRouter,
-  forgottenRouter,
-  pictureRouter,
-  transactionRouter,
-};
+    eventsRouter,
+    categoriesRouter,
+    authsRouter,
+    postsRouter,
+    forgottenRouter,
+    pictureRouter,
+    transactionRouter,
+    citiesRouter
+}

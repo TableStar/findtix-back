@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { auths } = require("../models");
-const { templateResSuccess } = require("../helper/utilities");
+const { templateResSuccess, templateResError } = require("../helper/utilities");
+const bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 
 module.exports = {
   validateReg: async (req, res, next) => {
@@ -23,8 +25,9 @@ module.exports = {
   },
   validateOldPass: async (req, res, next) => {
     try {
+      console.log(req.body);
       const response = await auths.findOne({
-        where: { id: userData.id },
+        where: { id: req.userData.id },
       });
       const passChecker = await bcrypt.compare(
         req.body.oldPassword,
@@ -43,14 +46,24 @@ module.exports = {
     }
   },
   validatePass: async (req, res, next) => {
-    if (
-      req.body.password.length < 8 ||
-      req.body.password !== req.body.passwordConfirm
-    ) {
+    console.log(req.body.passwordConfirm);
+    if (req.body?.passwordConfirm?.length > 0) {
+      if (
+        req.body.password.length < 8 ||
+        req.body.password !== req.body.passwordConfirm
+      ) {
+        return res
+          .status(400)
+          .send({ success: false, message: "Your password is invalid" });
+      } else {
+        next();
+      }
+    } else if (req.body.password?.length < 8) {
       return res
         .status(400)
         .send({ success: false, message: "Your password is invalid" });
     } else {
+      console.log(req.body);
       next();
     }
   },
@@ -97,11 +110,93 @@ module.exports = {
   validateCreator: (req, res, next) => {
     console.log(req.userData);
     if (req.userData.role !== "creator") {
-      res
+      return res
         .status(401)
         .send({ success: false, message: "Unauthorized. For Attendee only" });
     } else {
       next();
+    }
+  },
+  validateUsername: async (req, res, next) => {
+    try {
+      console.log(
+        "🚀 ~ file: validations.js:119 ~ validateUsername: ~ req.body.username:",
+        req.body.username
+      );
+      const result = await auths.findOne({
+        where: {
+          username: req.body.username,
+          id: { [Op.not]: req.userData.id },
+        },
+      });
+      console.log(
+        "🚀 ~ file: validations.js:119 ~ validateUsername: ~ result:",
+        result
+      );
+      if (result) {
+        return res
+          .status(401)
+          .send(
+            templateResError(
+              401,
+              false,
+              "username is already used",
+              "error",
+              null
+            )
+          );
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  validateCurrPass: async (req, res, next) => {
+    try {
+      const response = await auths.findOne({
+        where: { id: req.userData.id },
+      });
+      console.log(
+        "🚀 ~ file: validations.js:156 ~ validateCurrPass: ~ response:",
+        response
+      );
+      const passChecker = await bcrypt.compare(
+        req.body.password,
+        response.password
+      );
+      console.log(
+        "🚀 ~ file: validations.js:138 ~ validateCurrPass: ~ passChecker:",
+        passChecker
+      );
+      if (!passChecker) {
+        return res.status(401).send({
+          success: false,
+          message: "password is incorrect\nCheck your inputted password",
+        });
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  vaidateEmail: async (req, res, next) => {
+    try {
+      const result = await auths.findOne({
+        where: { username: req.body.email, id: { [Op.not]: req.userData.id } },
+      });
+      if (result) {
+        return res
+          .status(401)
+          .send(
+            templateResError(401, false, "email is already used", "error", null)
+          );
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.log(error);
     }
   },
 };

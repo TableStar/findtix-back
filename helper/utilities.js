@@ -28,7 +28,16 @@ module.exports = {
     ).toUpperCase();
     return referral;
   },
-  cryptoHex: () => {
-    return crypto.randomBytes(3).toString("hex").toUpperCase();
+  ticketCodeNamer: (eventName) => {
+    return `${eventName.substring(0, 3).toUpperCase()}-${crypto
+      .randomBytes(3)
+      .toString("hex")
+      .toUpperCase()}`;
+  },
+  invoiceNamer: (eventId) => {
+    return `INV-${eventId}-${new Date().toISOString().split("T")[0]}-${crypto
+      .randomBytes(3)
+      .toString("hex")
+      .toUpperCase()}`;
   },
 };

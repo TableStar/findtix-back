@@ -7,6 +7,9 @@ const {
   validateOldPass,
   validatePass,
   tokenAffirmation,
+  validateCurrPass,
+  validateUsername,
+  vaidateEmail,
 } = require("../middleware/validations");
 
 router.post("/register", validateReg, authsController.register);
@@ -22,7 +25,15 @@ router.patch(
   authsController.changePass
 );
 router.patch("/verifyemail", validateToken, authsController.changeVerified);
-router.patch("/editauths", validateToken, authsController.editAuths);
+router.patch(
+  "/editauths",
+  validateToken,
+  validatePass,
+  validateCurrPass,
+  validateUsername,
+  vaidateEmail,
+  authsController.editAuths
+);
 router.patch("/edituserprops", validateToken, authsController.editUserProps);
 router.get("/getall", authsController.getAllUserProps);
 router.patch(
@@ -32,5 +43,6 @@ router.patch(
   validateOldPass,
   authsController.changePass
 );
+router.patch("/referral", validateToken, authsController.editRefpoints);
 
 module.exports = router;

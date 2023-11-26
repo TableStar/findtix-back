@@ -9,13 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      transactions.hasMany(models.transactionDetails);
+      // transactions.hasMany(models.transactionDetails, {
+      //   foreignKey: "transactionId",
+      // });
+      transactions.belongsToMany(models.individualTickets, {
+        through: models.transactionDetails,
+        foreignKey: "transactionId",
+      });
     }
   }
   transactions.init(
     {
       userId: DataTypes.INTEGER,
       eventId: DataTypes.INTEGER,
+      transactionInvoice: DataTypes.STRING,
       transactionDate: DataTypes.DATE,
       ticketCount: DataTypes.INTEGER,
       totalPayment: DataTypes.INTEGER,

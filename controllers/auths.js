@@ -12,6 +12,7 @@ const {
   referralCodeyo,
 } = require("../helper/utilities");
 const { FRONT_URL } = require("../helper/frontInfo");
+const { Op } = require("sequelize");
 
 // const { clientRedis } = require("../helper/redis");
 
@@ -66,7 +67,7 @@ module.exports = {
           from: "FINDTIX Admin",
           to: req.body.email,
           subject: "Registration Info",
-          html: `<h1>Hello,${req.body.username} Welcome to FINDTIX</h1>
+          html: `<h1>Hello,${req.body.username} Welcome to FINDTIX</h1><br></br>
           <a href="${FRONT_URL}/auth/verifyemail?token=${token}">Click Link</a>`,
         });
         return res.status(200).send({
@@ -148,10 +149,11 @@ module.exports = {
       const result = await auths.findOne({
         where: { id: req.userData.id },
         raw: true,
+        nest: true,
         include: {
           model: usersProperties,
-          attributes: ['profileImage']
-        }
+          attributes: ["profileImage"],
+        },
       });
       console.log("INI RESULT", result);
       const { id, username, email, role } = result;
@@ -270,13 +272,20 @@ module.exports = {
   },
   //edit Auths Username and Email only
   editAuths: async (req, res, next) => {
+    // const transaction = await db.sequelize.transaction();
     try {
-      await auths.update(req.body, { where: { userId: req.userData.id } });
-      return res
-        .status(200)
-        .send({ success: true, message: "user properties has been updated" });
+      delete req.body.password;
+      await auths.update(req.body, {
+        where: { id: req.userData.id },
+      });
+      // await transaction.commit();
+      return res.status(200).send({
+        success: true,
+        message: "Your username and/or email has been updated",
+      });
     } catch (error) {
       console.log(error);
+      // await transaction.rollback();
     }
   },
   editUserProps: async (req, res, next) => {
@@ -320,6 +329,72 @@ module.exports = {
         return res.status(200).send(result);
       }
       // return await clientRedis.quit();
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  editRefpoints: async (req, res, next) => {
+    try {
+      console.log(
+        "🚀 ~ file: auths.js:271 ~ editUserProps: ~ req.body:",
+        req.body
+      );
+      const result = await usersProperties.findOne({
+        where: { userId: req.userData.id, hasReffed: false },
+        raw: true,
+      });
+      if (!result) {
+        return res
+          .status(401)
+          .send(
+            templateResError(
+              401,
+              false,
+              "User has already reffed someone",
+              "error",
+              null
+            )
+          );
+      }
+      if (result.referralCode.includes(req.body.referralCode)) {
+        return res
+          .status(401)
+          .send(
+            templateResError(
+              401,
+              false,
+              "You can't enter your own Referral Code",
+              "error",
+              null
+            )
+          );
+      }
+      Promise.all([
+        await usersProperties.increment("refpoints", {
+          by: 10,
+          where: {
+            referralCode: req.body.referralCode,
+            userId: { [Op.not]: req.userData.id },
+          },
+        }),
+        await usersProperties.increment("refpoints", {
+          by: 10,
+          where: {
+            userId: req.userData.id,
+          },
+        }),
+      ]);
+      await usersProperties.update(
+        { hasReffed: true },
+        {
+          where: {
+            userId: req.userData.id,
+          },
+        }
+      );
+      return res
+        .status(200)
+        .send({ success: true, message: "Referral Points has been updated" });
     } catch (error) {
       console.log(error);
     }

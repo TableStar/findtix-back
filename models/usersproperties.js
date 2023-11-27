@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       phoneNumber: DataTypes.STRING,
       creatorCompany: DataTypes.STRING,
       refpoints: DataTypes.INTEGER,
+      hasReffed: DataTypes.BOOLEAN,
     },
     {
       sequelize,

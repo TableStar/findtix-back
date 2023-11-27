@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       events.belongsTo(models.categories)
       events.belongsTo(models.cities)
+      events.belongsTo(models.auths, {foreignKey: "creatorId"})
       events.hasMany(models.ticketTypes)
     }
   }

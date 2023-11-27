@@ -17,6 +17,7 @@ const midtransClient = require("midtrans-client");
 module.exports = {
   createTransaction: async (req, res, next) => {
     try {
+      console.log("kiriman", req.body);
       const result = await events.findOne({
         where: { status: "Upcoming", id: req.body.eventId },
         attributes: { exclude: ["createdAt", "deletedAt", "updatedAt"] },
@@ -26,7 +27,7 @@ module.exports = {
       });
       console.log(
         "🚀 ~ file: transactions.js:9 ~ createTransaction: ~ result:",
-        result.ticketTypes.id
+        result.ticketTypes.ticketTypeId
       );
       await transactions.create({
         userId: req.userData.id,
@@ -45,7 +46,7 @@ module.exports = {
       );
       const promisesTickets = req.body.totalTickets.map(async (val, idx) => {
         const ticketsOneType = [];
-        for (let i = 0; i < val.amount; i++) {
+        for (let i = 0; i < val.quantity; i++) {
           ticketsOneType.push({
             userId: req.userData.id,
             ticketTypeId: val.ticketTypeId,
@@ -64,7 +65,7 @@ module.exports = {
       });
       const promiseReduceMax = req.body.totalTickets.map(async (val, idx) => {
         return await ticketTypes.decrement(
-          { maxAmount: -Math.abs(val.amount) },
+          { maxAmount: Math.abs(val.quantity) },
           { where: { id: val.ticketTypeId } }
         );
       });
@@ -116,7 +117,7 @@ module.exports = {
     let snap = new midtransClient.Snap({
       // Set to true if you want Production Environment (accept real transaction).
       isProduction: false,
-      serverKey: "SB-Mid-server-4eE1Wks6qZNDzlwaHW6oKu6u",
+      serverKey: process.env.MIDTRANS_KEY,
     });
 
     let parameter = {
@@ -131,8 +132,16 @@ module.exports = {
         first_name: req.body.buyerFirstName,
         last_name: req.body.buyerLastName,
         email: req.body.buyerEmail,
-        phone: "08111222333",
+        phone: req.body.buyerPhone,
       },
+      item_details: req.body.totalTickets.map((val, idx) => {
+        return {
+          id: val.ticketTypeId,
+          price: val.ticketPrice,
+          quantity: val.quantity,
+          name: val.ticketName,
+        };
+      }),
     };
 
     snap.createTransaction(parameter).then((transaction) => {

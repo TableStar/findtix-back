@@ -12,16 +12,16 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await queryInterface.bulkInsert("auths", [
-      {
-        username: "riseRebellionFalcon",
-        email: "raidraptors@gmail.com",
-        password: "rankupmagic",
-        role: "attendee",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]);
+    // await queryInterface.bulkInsert("auths", [
+    //   {
+    //     username: "riseRebellionFalcon",
+    //     email: "raidraptors@gmail.com",
+    //     password: "rankupmagic",
+    //     role: "attendee",
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //   },
+    // ]);
   },
 
   async down(queryInterface, Sequelize) {

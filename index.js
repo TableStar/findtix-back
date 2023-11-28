@@ -27,16 +27,18 @@ const {
   categoriesRouter,
   transactionRouter,
   citiesRouter,
-  promotorRouter
+    promotorRouter,
+    ticketRouter
 } = require("./routers");
 app.use("/events", eventsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/auths", authsRouter);
 app.use("/posts", postsRouter);
+app.use("/tickets", ticketRouter);
 app.use("/forgotten", forgottenRouter);
 app.use("/profilepic", pictureRouter);
 app.use("/transaction", transactionRouter);
-app.use("/cities", citiesRouter)
+app.use("/cities", citiesRouter);
 app.use("/promotors", promotorRouter)
 
 app.use("/public", express.static("public"));

@@ -16,14 +16,14 @@ const transactionController = require("./transactions")
 const ticketController = require("./tickets")
 const promotorController = require("./promotor")
 module.exports = {
-    eventsController,
-    categoriesController,
-    authsController,
-    postsController,
-    forgottenController,
-    pictureController,
-    transactionController,
-    citiesController,
-        promotorController
-      ticketController
+  eventsController,
+  categoriesController,
+  authsController,
+  postsController,
+  forgottenController,
+  pictureController,
+  transactionController,
+  citiesController,
+  promotorController,
+  ticketController
 }

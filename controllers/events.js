@@ -74,13 +74,11 @@ module.exports = {
       try {
         const {
           creatorId,
-          category,
-          title,
-          maxAttendees,
-          tags,
+          categoryId,
+          name,
           caption,
-          city,
-          address,
+          cityId,
+          location,
           startDate,
           endDate,
           description,
@@ -89,16 +87,15 @@ module.exports = {
         const result = await events.create(
           {
             creatorId,
-            category,
-            title,
-            maxAttendees,
-            tags,
+            categoryId,
+            name,
             caption,
-            city,
-            address,
+            cityId,
+            location,
             startDate,
             endDate,
             img: req.file.filename,
+            status: "Upcoming",
             description,
           },
           {
@@ -114,6 +111,7 @@ module.exports = {
         });
       } catch (error) {
         await t.rollback();
+        console.log("masuk error");
         console.error(error);
         fs.unlinkSync(`./public/${req.file.filename}`);
         return res.status(500).send({
@@ -132,4 +130,3 @@ module.exports = {
     }
   },
 };
-}

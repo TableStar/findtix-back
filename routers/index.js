@@ -12,6 +12,7 @@ const forgottenRouter = require("./forgotten");
 const pictureRouter = require("./picture");
 const transactionRouter = require("./transactions");
 const citiesRouter = require("./cities");
+const ticketRouter = require("./tickets");
 module.exports = {
     eventsRouter,
     categoriesRouter,
@@ -20,5 +21,6 @@ module.exports = {
     forgottenRouter,
     pictureRouter,
     transactionRouter,
-    citiesRouter
+    citiesRouter,
+    ticketRouter
 }

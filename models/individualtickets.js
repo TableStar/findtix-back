@@ -9,8 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association
-      individualTickets.belongsTo(models.auths);
-      individualTickets.belongsTo(models.transactionDetails);
+      individualTickets.belongsTo(models.auths, { foreignKey: "userId" });
+      individualTickets.belongsToMany(models.transactions, {
+        through: models.transactionDetails,
+        foreignKey: "ticketId",
+      });
+      individualTickets.hasOne(models.transactionDetails, {
+        foreignKey: "ticketId",
+        as: "details",
+      });
     }
   }
   individualTickets.init(

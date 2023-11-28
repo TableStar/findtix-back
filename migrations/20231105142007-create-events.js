@@ -40,11 +40,11 @@ module.exports = {
       },
       caption: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(500)
       },
       description: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(2000)
       },
       status: {
         allowNull: false,

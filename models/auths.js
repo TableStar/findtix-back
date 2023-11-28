@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
       });
       auths.hasMany(models.individualTickets, { foreignKey: "userId" });
-
+      auths.hasMany(models.events, { foreignKey: "creatorId" })
       // auths.hasMany(models.poster);
     }
   }

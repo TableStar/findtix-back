@@ -13,6 +13,8 @@ const pictureRouter = require("./picture");
 const transactionRouter = require("./transactions");
 const citiesRouter = require("./cities");
 const ticketRouter = require("./tickets");
+const promotorRouter = require("./promotor")
+
 module.exports = {
     eventsRouter,
     categoriesRouter,
@@ -22,5 +24,6 @@ module.exports = {
     pictureRouter,
     transactionRouter,
     citiesRouter,
-    ticketRouter
+    ticketRouter,
+    promotorRouter
 }

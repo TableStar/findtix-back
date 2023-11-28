@@ -13,6 +13,7 @@ const forgottenController = require("./forgotten");
 const pictureController = require("./picture");
 const citiesController = require("./cities")
 const transactionController = require("./transactions")
+const promotorController = require("./promotor")
 module.exports = {
     eventsController,
     categoriesController,
@@ -21,5 +22,6 @@ module.exports = {
     forgottenController,
     pictureController,
     transactionController,
-    citiesController
+    citiesController,
+    promotorController
 }

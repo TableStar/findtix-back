@@ -7,11 +7,11 @@ const { filterDate } = require("../helper/filterDate");
 module.exports = {
   getUpcomingEvents: async (req, res) => {
     try {
-      const { name, limit, price, startDate, endDate, category, city, date, page, ...others } = req.query
+      const { name, limit, price, startDate, endDate, category, city, date, page, creatorId, status, ...others } = req.query
       const resDate = date ? filterDate(date) : null
       const option = {
         where: {
-          status: "Upcoming",
+          status: status === "all" ? {[Op.ne]: null} : status || "Upcoming",
           name: name ? { [Op.like]: `%${name}%` } : { [Op.ne]: null },
           startDate: resDate ? { [Op.between]: [resDate.startDate, resDate.endDate] } : startDate ? { [Op.between]: [startDate, endDate] } : { [Op.ne]: null },
           ...others
@@ -34,7 +34,8 @@ module.exports = {
           },
           {
             model: auths,
-            attributes: ['username']
+            attributes: ['username'],
+            where: { id: creatorId ? creatorId : { [Op.ne]: null } }
           }
         ],
         limit: parseInt(limit) || 8,
@@ -42,7 +43,7 @@ module.exports = {
       }
       const result = await events.findAll(option)
       result.forEach(value => value.ticketTypes.sort((a, b) => a.price - b.price))
-      const template = {success: true, result}
+      const template = { success: true, result }
       if (page) {
         const totalResult = await events.count({ ...option, group: 'events.id' })
         template.totalResult = totalResult.length

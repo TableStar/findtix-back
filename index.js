@@ -26,7 +26,8 @@ const {
   eventsRouter,
   categoriesRouter,
   transactionRouter,
-  citiesRouter
+  citiesRouter,
+  promotorRouter
 } = require("./routers");
 app.use("/events", eventsRouter);
 app.use("/categories", categoriesRouter);
@@ -36,6 +37,7 @@ app.use("/forgotten", forgottenRouter);
 app.use("/profilepic", pictureRouter);
 app.use("/transaction", transactionRouter);
 app.use("/cities", citiesRouter)
+app.use("/promotors", promotorRouter)
 
 app.use("/public", express.static("public"));
 

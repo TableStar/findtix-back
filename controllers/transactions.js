@@ -13,6 +13,8 @@ const {
 } = require("../models");
 const crypto = require("crypto");
 const midtransClient = require("midtrans-client");
+const { Op } = require("sequelize");
+const db = require("../models");
 
 module.exports = {
   createTransaction: async (req, res, next) => {
@@ -90,23 +92,66 @@ module.exports = {
   },
   getAllTransaction: async (req, res, next) => {
     try {
+      console.log(req.userData);
       const resultTrans = await transactions.findAll({
-        order: [["id", "DESC"]],
-        // raw: true,
+        where: req.userData.id
+          ? { userId: req.userData.id }
+          : { [Op.ne]: null },
+        attributes: {
+          exclude: ["userId"],
+        },
+        // include: [individualTickets],
+        order: [["id", req.query.order ? req.query.order : "DESC"]],
+        raw: true,
         // nest: true,
-        include: [
-          // { model: transactionDetails },
-          { model: individualTickets },
-        ],
       });
+      // console.log(
+      //   "🚀 ~ file: transactions.js:95 ~ createTransaction: ~ resultTrans:",
+      //   resultTrans[0].dataValues.individualTickets[0].dataValues.ticketTypeId
+      // );
+      // const tickets = resultTrans[0].dataValues.individualTickets.map(
+      //   (val, idx) => {
+      //     return { ticketTypeId: val.dataValues.ticketTypeId };
+      //   }
+      // );
+      // const transMap = resultTrans.map(async (val, idx) => {
+      //   const tickets = val.dataValues.individualTickets.map(
+      //     async (val, idx) => {
+      //       return await ticketTypes.findOne({
+      //         where: { id: val.dataValues.ticketTypeId },
+      //         attributes: ["name"],
+      //       });
+
+      //     }
+      //   );
+      //   return Promise.all(tickets);
+      // });
+      // const promised = await Promise.all(transMap);
+      // console.log("🚀 ~ file: transactions.js:137 ~ getAllTransaction: ~ promised:", promised)
+      // // const resName = promised.map((val,idx) => {
+      // //   return {ticketName:val.ticke}
+      // // })
+      const eventName = await Promise.all(
+        resultTrans.map(async (val, idx) => {
+          return events.findOne({
+            where: { id: val.eventId },
+            attributes: ["name"],
+            raw: true,
+          });
+        })
+      );
+      const finalResult = resultTrans.map((val, idx) => {
+        return { ...val, ...eventName[idx] };
+      });
+
       console.log(
-        "🚀 ~ file: transactions.js:95 ~ createTransaction: ~ resultTrans:",
-        resultTrans
+        "🚀 ~ file: transactions.js:149 ~ getAllTransaction: ~ namer:",
+        eventName
       );
       return res
         .status(200)
         .send(
-          templateResSuccess(true, "fetching transaction success", resultTrans)
+          templateResSuccess(true, "fetching transaction success", finalResult)
         );
     } catch (error) {
       console.log(error);
@@ -155,5 +200,21 @@ module.exports = {
         .status(200)
         .send(templateResSuccess(true, "SNAP Midtrans Success", transaction));
     });
+  },
+  editStatus: async (req, res, next) => {
+    const t = await db.sequelize.transaction();
+    try {
+      await transactions.update(
+        { paymentStatus: req.body.paymentStatus },
+        { where: { transactionInvoice: req.params.inv }, transaction: t }
+      );
+      await t.commit();
+      return res
+        .status(200)
+        .send(templateResSuccess(true, "status update success", null));
+    } catch (error) {
+      console.log(error);
+      await t.rollback();
+    }
   },
 };

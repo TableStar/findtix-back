@@ -31,6 +31,9 @@ module.exports = {
       phoneNumber: {
         type: Sequelize.STRING,
       },
+      idCardNumber: {
+        type: Sequelize.STRING,
+      },
       creatorCompany: {
         type: Sequelize.STRING,
       },

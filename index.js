@@ -8,15 +8,26 @@ const { Sequelize } = require("sequelize");
 const bearerToken = require("express-bearer-token");
 // const { redisConnect } = require("./helper/redis");
 // redisConnect();
-const corsOptions ={
-  origin:'*', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
-}
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bearerToken());
+
+app.use(function (req, res, next) {
+  //Enabling CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+  );
+  next();
+});
 
 app.get("/", (req, res) => {
   return res.status(200).send("API RUNNING");
@@ -32,8 +43,8 @@ const {
   categoriesRouter,
   transactionRouter,
   citiesRouter,
-    promotorRouter,
-    ticketRouter
+  promotorRouter,
+  ticketRouter,
 } = require("./routers");
 app.use("/events", eventsRouter);
 app.use("/categories", categoriesRouter);
@@ -44,7 +55,7 @@ app.use("/forgotten", forgottenRouter);
 app.use("/profilepic", pictureRouter);
 app.use("/transaction", transactionRouter);
 app.use("/cities", citiesRouter);
-app.use("/promotors", promotorRouter)
+app.use("/promotors", promotorRouter);
 
 app.use("/public", express.static("public"));
 

@@ -8,8 +8,13 @@ const { Sequelize } = require("sequelize");
 const bearerToken = require("express-bearer-token");
 // const { redisConnect } = require("./helper/redis");
 // redisConnect();
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bearerToken());
 

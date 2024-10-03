@@ -1,3 +1,3 @@
-const FRONT_URL = "http://localhost:5173";
+const FRONT_URL = process.env.FRONT_URL;
 
 module.exports = { FRONT_URL };
